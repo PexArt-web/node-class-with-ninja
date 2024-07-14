@@ -1,20 +1,29 @@
 const { log } = console;
 const express = require("express");
 const app = express();
-port = 7000;
-app.listen(port, () => {
-  log("starting");
-});
+const port = 7000;
+app.listen(port, log("starting server..."));
+// registering views
+app.set("view engine", "ejs");
+
 app.get("/", (req, res) => {
-  res.sendFile("./views/index.html", { root: __dirname });
-});
-app.get("/about", (req, res) => {
-  res.sendFile("./views/about.html", { root: __dirname });
+  res.render("index");
 });
 
-// redirect to about page
+app.get("/about", (req, res) => {
+  res.render("about");
+});
+
+// redirect back to the about page /about
+
 app.get("/about-us", (req, res) => {
   res.redirect("/about");
 });
 
-app.use((req, res) => res.sendFile("./views/404.html", { root: __dirname }));
+app.get("/blogs/create", (req, res) => {
+  res.render("create");
+});
+
+app.use((req, res) => {
+  res.status(404).render("404");
+});
