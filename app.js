@@ -7,11 +7,25 @@ app.listen(port, log("starting server..."));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  res.render("index");
+  const blogs = [
+    {
+      title: "Yoshi finds eggs",
+      snippet: "Lorem ipsum dolor sit amet consectetur",
+    },
+    {
+      title: "Mario finds stars",
+      snippet: "Lorem ipsum dolor sit amet consectetur",
+    },
+    {
+      title: "Mario finds stars",
+      snippet: "Lorem ipsum dolor sit amet consectetur",
+    },
+  ];
+  res.render("index", { title: "Homepage", blogs });
 });
 
 app.get("/about", (req, res) => {
-  res.render("about");
+  res.render("about", { title: "About" });
 });
 
 // redirect back to the about page /about
@@ -21,9 +35,9 @@ app.get("/about-us", (req, res) => {
 });
 
 app.get("/blogs/create", (req, res) => {
-  res.render("create");
+  res.render("create", { title: "Create" });
 });
 
 app.use((req, res) => {
-  res.status(404).render("404");
+  res.status(404).render("404", { title: "404" });
 });
